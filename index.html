@@ -54,7 +54,12 @@
   }
 </script>
 <style>
-  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle}
+  /* ── Icon baseline fix — consistent alignment everywhere ── */
+  .material-symbols-outlined{
+    font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    display:inline-flex;align-items:center;justify-content:center;
+    line-height:1;vertical-align:middle;flex-shrink:0;
+  }
   .experience-bullet::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;background:#aa0014}
   html{scroll-behavior:smooth}
   .hero-stripe{background:repeating-linear-gradient(-55deg,transparent,transparent 4px,rgba(170,0,20,.06) 4px,rgba(170,0,20,.06) 8px)}
@@ -84,6 +89,44 @@
     /* Reset transforms for cards */
     .portfolio-card:hover,.portfolio-card{transform:none!important;box-shadow:none!important}
   }
+  /* ── Icon size helpers ── */
+  .icon-sm{font-size:16px!important;width:16px;height:16px}
+  .icon-md{font-size:20px!important;width:20px;height:20px}
+  .icon-lg{font-size:28px!important;width:28px;height:28px}
+  .icon-xl{font-size:40px!important;width:40px;height:40px}
+  /* Inline icon + text — prevents icon from stretching the line height */
+  .icon-row{display:flex;align-items:center;gap:8px;line-height:1.5}
+  .icon-row .material-symbols-outlined{font-size:17px;flex-shrink:0}
+
+  /* ── Certificate cards ── */
+  .cert-card{transition:transform .22s ease,box-shadow .22s ease;cursor:pointer}
+  .cert-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(170,0,20,.13)}
+  .cert-card:hover .cert-overlay{opacity:1}
+  .cert-overlay{
+    position:absolute;inset:0;background:rgba(170,0,20,.82);
+    opacity:0;transition:opacity .22s ease;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px
+  }
+  .cert-img-wrap{position:relative;overflow:hidden}
+  /* Placeholder pattern for empty cert slots */
+  .cert-placeholder{
+    background:repeating-linear-gradient(
+      45deg,#f3f4f5,#f3f4f5 8px,#e7e8e9 8px,#e7e8e9 16px
+    );
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px
+  }
+
+  /* ── Lightbox ── */
+  #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:10000;align-items:center;justify-content:center;padding:16px}
+  #lightbox.active{display:flex}
+  #lightbox-img{max-width:90vw;max-height:85vh;object-fit:contain;border:2px solid #aa0014;box-shadow:0 0 60px rgba(170,0,20,.4)}
+  #lightbox-close{position:absolute;top:16px;right:16px;background:#aa0014;color:#fff;border:none;width:40px;height:40px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  #lightbox-caption{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;padding:8px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+
+  /* ── Cert filter tabs ── */
+  .cert-filter-btn{transition:background .18s,color .18s,border-color .18s}
+  .cert-filter-btn.active{background:#aa0014;color:#fff;border-color:#aa0014}
+
   /* PDF loading overlay */
   #pdf-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
   #pdf-overlay.active{display:flex}
@@ -743,152 +786,246 @@
 <!-- ══════════════════ CERTIFICATIONS ══════════════════ -->
 <section id="certifications" class="reveal bg-surface-container-low py-20">
   <div class="max-w-[1400px] mx-auto w-full px-6 md:px-margin-page">
-    <div class="border-t-4 border-primary pt-8 mb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
-      <h2 class="font-headline-section text-headline-section text-primary uppercase">Certifications &amp; Credentials</h2>
+
+    <!-- Header -->
+    <div class="border-t-4 border-primary pt-8 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h2 class="font-headline-section text-headline-section text-primary uppercase">Certifications &amp; Credentials</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Click any certificate to view it full screen.</p>
+      </div>
       <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">Official Recognition</span>
     </div>
-    <p class="font-body-sm text-body-sm text-on-surface-variant mb-10">A growing collection of professional certificates, training completions, and academic recognitions. More certificates will be added here.</p>
 
-    <!-- Upload instruction notice -->
-    <div class="border border-dashed border-secondary p-5 mb-8 flex items-start gap-4 bg-surface-container-lowest">
-      <span class="material-symbols-outlined text-secondary shrink-0" style="font-size:24px">info</span>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">To add your real certificates: place the image files (JPG/PNG) in the portfolio folder and replace the <code class="font-label-mono text-[10px] bg-surface-container-high px-1">src</code> attribute in each card below.</p>
+    <!-- Filter tabs -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button class="cert-filter-btn active bg-primary text-on-primary px-4 py-1.5 font-label-mono text-label-mono uppercase border border-primary" data-cert-filter="all">All</button>
+      <button class="cert-filter-btn border border-outline-variant text-tertiary px-4 py-1.5 font-label-mono text-label-mono uppercase" data-cert-filter="academic">Academic</button>
+      <button class="cert-filter-btn border border-outline-variant text-tertiary px-4 py-1.5 font-label-mono text-label-mono uppercase" data-cert-filter="professional">Professional</button>
+      <button class="cert-filter-btn border border-outline-variant text-tertiary px-4 py-1.5 font-label-mono text-label-mono uppercase" data-cert-filter="training">Training</button>
     </div>
 
     <!-- Certificate Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-grid" id="cert-grid">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="cert-grid">
 
-      <!-- Aspire Institute -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">workspace_premium</span>
-          <!-- Replace the span above with: <img src="cert-aspire.jpg" class="w-full h-full object-contain p-2" alt="Aspire Certificate"> -->
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Aspire Institute — Leadership Dev</h3>
-            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2024</span>
+      <!-- ① Aspire Institute -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="professional" data-cert-img="" data-cert-title="Aspire Institute — Leadership Development Program" data-cert-year="2024">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">workspace_premium</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Aspire Institute · Harvard University Affiliated</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">3-month Leadership Development Program. Selected as Aspire Ambassador.</p>
-        </div>
-      </div>
-
-      <!-- BBA Degree -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">school</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">BBA (Honors) Degree</h3>
-            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2025</span>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Texas Intl. College · Lincoln University, Malaysia</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Bachelor of Business Administration · CGPA 3.81 · Letter of Recommendation Awarded.</p>
         </div>
-      </div>
-
-      <!-- AI Digital Marketing -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">psychology</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">AI in Digital Marketing</h3>
-            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">Certified</span>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Aspire Institute Leadership Dev</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2024</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Certified Trainer · CNI Programs</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Certified AI Digital Marketing Trainer — delivered corporate training programs for the Confederation of Nepalese Industries.</p>
-        </div>
-      </div>
-
-      <!-- Digital Marketing & Web Design -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">web</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Digital Marketing &amp; Web Design</h3>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Harvard-affiliated</p>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Creatu Learning</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">In-depth training on digital marketing strategy and web design principles.</p>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">3-month Leadership Development Program. Selected as Aspire Ambassador.</p>
         </div>
       </div>
 
-      <!-- Marketing & Branding -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">palette</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Marketing &amp; Branding</h3>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2022</span>
+      <!-- ② BBA Degree -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="academic" data-cert-img="" data-cert-title="Bachelor of Business Administration — Texas Intl. College" data-cert-year="2025">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">school</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Skill Lab Nepal</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Comprehensive training on marketing strategy, brand building, and consumer behavior.</p>
-        </div>
-      </div>
-
-      <!-- Share Market Training -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">candlestick_chart</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Share Market Training</h3>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2022</span>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Artha Sewa &amp; Texas College</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Training in stock market analysis, investment strategies, and financial instruments.</p>
         </div>
-      </div>
-
-      <!-- Entrepreneurship Training -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">rocket_launch</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Entrepreneurship Training Program</h3>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">BBA (Honors) Degree</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2025</span>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Generate / Start Your Business</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">7-day in-depth session on entrepreneurship prospects and scope in Nepal.</p>
-        </div>
-      </div>
-
-      <!-- Client Communication -->
-      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
-        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
-          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">forum</span>
-        </div>
-        <div class="p-5 border-t border-outline-variant">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Client Communication Workshop</h3>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">grade</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">CGPA 3.81 · LoR Awarded</p>
           </div>
-          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Foodmandu &amp; SkillLab</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Workshop on client communication, stakeholder management, and professional correspondence.</p>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">Texas Intl. College · Lincoln University, Malaysia.</p>
         </div>
       </div>
 
-      <!-- Add more certificate placeholder -->
-      <div class="cert-card border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-8 text-center hover:border-primary transition-colors cursor-default">
-        <span class="material-symbols-outlined text-primary text-5xl mb-3">add_circle</span>
-        <p class="font-label-mono text-label-mono text-tertiary uppercase mb-1">Add Your Certificate</p>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Place your certificate image in the folder and update the src attribute in this section.</p>
+      <!-- ③ AI in Digital Marketing -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="professional" data-cert-img="" data-cert-title="Certified AI in Digital Marketing Trainer — CNI" data-cert-year="Certified">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">psychology</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">AI in Digital Marketing</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">Cert.</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">verified</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">CNI Certified Trainer</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">Corporate AI training for Confederation of Nepalese Industries.</p>
+        </div>
       </div>
 
-    </div>
-  </div>
+      <!-- ④ Digital Marketing & Web Design -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="training" data-cert-img="" data-cert-title="Digital Marketing &amp; Web Design — Creatu Learning" data-cert-year="2023">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">web</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Digital Marketing &amp; Web Design</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2023</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Creatu Learning</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">In-depth digital marketing strategy and web design training.</p>
+        </div>
+      </div>
+
+      <!-- ⑤ Marketing & Branding -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="training" data-cert-img="" data-cert-title="Marketing &amp; Branding — Skill Lab Nepal" data-cert-year="2022">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">palette</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Marketing &amp; Branding</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2022</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Skill Lab Nepal</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">Marketing strategy, brand building, and consumer behavior.</p>
+        </div>
+      </div>
+
+      <!-- ⑥ Share Market -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="training" data-cert-img="" data-cert-title="Share Market Training — Artha Sewa &amp; Texas College" data-cert-year="2022">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">candlestick_chart</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Share Market Training</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2022</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Artha Sewa &amp; Texas College</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">Stock market analysis, investment strategy, financial instruments.</p>
+        </div>
+      </div>
+
+      <!-- ⑦ Entrepreneurship -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="training" data-cert-img="" data-cert-title="Entrepreneurship Training Program — 7 Days" data-cert-year="2023">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">rocket_launch</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Entrepreneurship Program</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2023</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Generate / Start Your Business</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">7-day program on entrepreneurship scope in Nepal.</p>
+        </div>
+      </div>
+
+      <!-- ⑧ Client Communication -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant overflow-hidden" data-cert-cat="training" data-cert-img="" data-cert-title="Client Communication Workshop — Foodmandu &amp; SkillLab" data-cert-year="2023">
+        <div class="h-48 cert-img-wrap">
+          <div class="cert-placeholder">
+            <span class="material-symbols-outlined text-primary" style="font-size:48px;font-variation-settings:'FILL' 1">forum</span>
+            <span class="font-label-mono text-[9px] text-tertiary uppercase tracking-widest">Certificate Image</span>
+          </div>
+          <div class="cert-overlay">
+            <span class="material-symbols-outlined text-white" style="font-size:32px">zoom_in</span>
+            <span class="font-label-mono text-[10px] text-white uppercase">View Certificate</span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-1.5">
+            <h3 class="font-subhead-bold text-[12px] text-on-surface uppercase leading-tight">Client Communication Workshop</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[8px] uppercase shrink-0">2023</span>
+          </div>
+          <div class="icon-row mb-1">
+            <span class="material-symbols-outlined text-secondary icon-sm" style="font-variation-settings:'FILL' 1">business</span>
+            <p class="font-body-sm text-body-sm text-secondary uppercase">Foodmandu &amp; SkillLab</p>
+          </div>
+          <p class="font-body-sm text-[11px] text-on-surface-variant leading-relaxed">Professional client communication and stakeholder management.</p>
+        </div>
+      </div>
+
+      <!-- ⑨ Coming soon slots (×4) -->
+      <div class="cert-card border border-dashed border-outline-variant flex flex-col items-center justify-center gap-3 p-6 text-center min-h-[260px] hover:border-primary transition-colors" data-cert-cat="all" style="cursor:default">
+        <span class="material-symbols-outlined text-outline-variant" style="font-size:40px">add_photo_alternate</span>
+        <div>
+          <p class="font-label-mono text-label-mono text-tertiary uppercase">Coming Soon</p>
+          <p class="font-body-sm text-[10px] text-on-surface-variant mt-1">Send your certificate image to add here</p>
+        </div>
+      </div>
+
+    </div><!-- /cert-grid -->
+  </div><!-- /container -->
 </section>
+
+<!-- ── Lightbox ── -->
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+</div>
 
 <!-- ══════════════════ CONTACT ══════════════════ -->
 <section id="contact" class="reveal bg-primary py-20">
@@ -1051,6 +1188,45 @@
       overlay.classList.remove('active');
     }
   }
+
+  // ── Certifications filter ────────────────────────────────────────
+  document.querySelectorAll('.cert-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cert-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.certFilter;
+      document.querySelectorAll('#cert-grid .cert-card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.certCat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  // ── Certifications lightbox ──────────────────────────────────────
+  const lightbox     = document.getElementById('lightbox');
+  const lightboxImg  = document.getElementById('lightbox-img');
+  const lightboxCap  = document.getElementById('lightbox-caption');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('#cert-grid .cert-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const src = card.dataset.certImg;
+      if (!src) return;
+      lightboxImg.src = src;
+      lightboxCap.textContent = (card.dataset.certTitle || '') + (card.dataset.certYear ? ' · ' + card.dataset.certYear : '');
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 
 <!-- PDF loading overlay -->
