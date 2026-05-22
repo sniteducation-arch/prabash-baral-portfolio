@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prabash Baral — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:       #aa0014;
+    --red-light: #ffdad6;
+    --blue:      #265fa2;
+    --blue-light:#d4e3ff;
+    --ink:       #191c1d;
+    --ink-mid:   #5c403d;
+    --ink-light: #545353;
+    --border:    #e5bdb9;
+    --bg-low:    #f3f4f5;
+    --bg-mid:    #edeeef;
+    --bg-high:   #e7e8e9;
+    --white:     #ffffff;
+    --page-w:    210mm;
+    --margin:    12mm;
+  }
+
+  html { font-size: 9pt; font-family: 'Inter', sans-serif; color: var(--ink); background: white; }
+  body { width: var(--page-w); margin: 0 auto; background: white; }
+
+  /* ── Typography helpers ── */
+  .mono      { font-family: 'JetBrains Mono', monospace; }
+  .head-font { font-family: 'Hanken Grotesk', sans-serif; }
+  .upper     { text-transform: uppercase; letter-spacing: .07em; }
+  .label     { font-family: 'JetBrains Mono', monospace; font-size: 7pt; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-light); }
+
+  /* ── Page layout ── */
+  @page {
+    size: A4;
+    margin: 10mm var(--margin);
+  }
+
+  /* PAGE BREAK HELPERS */
+  .page-break  { page-break-before: always; break-before: page; }
+  .keep-inside { page-break-inside: avoid; break-inside: avoid; }
+
+  /* ── HEADER (page 1 top) ── */
+  .cv-header {
+    display: grid;
+    grid-template-columns: 42mm 1fr;
+    gap: 8mm;
+    border-bottom: 3px solid var(--red);
+    padding-bottom: 6mm;
+    margin-bottom: 6mm;
+  }
+  .cv-header__photo {
+    width: 42mm;
+    height: 52mm;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border: 1px solid var(--border);
+  }
+  .cv-header__name {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 28pt;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 2mm;
+  }
+  .cv-header__name span { color: var(--red); }
+  .cv-header__title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--blue);
+    margin-bottom: 3mm;
+  }
+  .cv-header__accent { width: 16mm; height: 2px; background: var(--red); margin-bottom: 4mm; }
+  .cv-header__summary {
+    font-size: 8pt;
+    line-height: 1.55;
+    color: var(--ink-mid);
+    font-style: italic;
+    margin-bottom: 4mm;
+  }
+  .cv-header__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm 5mm;
+  }
+  .cv-header__contacts span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5pt;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+  }
+  .cv-header__contacts span::before {
+    content: '▸';
+    color: var(--red);
+    font-size: 7pt;
+  }
+
+  /* ── Section heading ── */
+  .section-head {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 7.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--red);
+    border-bottom: 1.5px solid var(--red);
+    padding-bottom: 1.5mm;
+    margin-bottom: 4mm;
+    margin-top: 5mm;
+  }
+
+  /* ── TWO-COLUMN BODY ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 58mm 1fr;
+    gap: 6mm;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar { font-size: 8pt; }
+
+  /* stats row */
+  .stats-row {
+    display: flex;
+    gap: 3mm;
+    margin-bottom: 5mm;
+  }
+  .stat-box {
+    flex: 1;
+    border-left: 2px solid var(--red);
+    padding-left: 2.5mm;
+  }
+  .stat-box__num {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 16pt;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+  }
+  .stat-box__label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-top: .5mm;
+  }
+
+  /* skill pill */
+  .skill-section { margin-bottom: 4mm; }
+  .skill-section__title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5pt;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--blue);
+    margin-bottom: 1.5mm;
+    font-weight: 700;
+  }
+  .pill-wrap { display: flex; flex-wrap: wrap; gap: 1.5mm; }
+  .pill {
+    background: var(--bg-low);
+    border: .5px solid var(--border);
+    padding: .8mm 2mm;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6pt;
+    color: var(--ink);
+  }
+  .pill.accent { background: var(--blue); color: white; border-color: var(--blue); }
+  .pill.red    { background: var(--red);  color: white; border-color: var(--red); }
+
+  /* language bar */
+  .lang-bar { margin-bottom: 2mm; }
+  .lang-bar__header { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 6pt; margin-bottom: .8mm; }
+  .lang-bar__track  { height: 2px; background: var(--bg-high); width: 100%; }
+  .lang-bar__fill   { height: 100%; background: var(--red); }
+
+  /* sidebar contact entry */
+  .sb-contact { display: flex; flex-direction: column; gap: 1.5mm; margin-bottom: 3mm; }
+  .sb-contact__row { display: flex; align-items: flex-start; gap: 2mm; font-size: 7pt; color: var(--ink-light); line-height: 1.35; }
+  .sb-contact__icon { color: var(--blue); font-size: 6.5pt; margin-top: .3mm; flex-shrink: 0; }
+
+  /* notable badge */
+  .notable-band {
+    background: var(--red);
+    color: white;
+    padding: 2.5mm 3mm;
+    margin-bottom: 4mm;
+    font-size: 7pt;
+    line-height: 1.5;
+    page-break-inside: avoid;
+  }
+  .notable-band__title {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 7.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 1.5mm;
+  }
+  .notable-band__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1mm 4mm;
+  }
+  .notable-band__item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.88);
+  }
+  .notable-band__item::before { content: '✦ '; color: rgba(255,255,255,.5); }
+
+  /* ── MAIN CONTENT ── */
+  .main-col { font-size: 8pt; }
+
+  /* Experience item */
+  .exp-item {
+    margin-bottom: 4.5mm;
+    padding-left: 3.5mm;
+    border-left: 1.5px solid var(--red);
+    page-break-inside: avoid;
+  }
+  .exp-item__header { display: flex; justify-content: space-between; align-items: flex-start; gap: 2mm; margin-bottom: .8mm; }
+  .exp-item__title  { font-family: 'Hanken Grotesk', sans-serif; font-size: 8.5pt; font-weight: 700; text-transform: uppercase; color: var(--ink); }
+  .exp-item__date   { font-family: 'JetBrains Mono', monospace; font-size: 6pt; color: var(--ink-light); white-space: nowrap; flex-shrink: 0; }
+  .exp-item__org    { font-family: 'JetBrains Mono', monospace; font-size: 6.5pt; text-transform: uppercase; color: var(--blue); margin-bottom: 1.2mm; }
+  .exp-item__bullets { padding-left: 0; list-style: none; }
+  .exp-item__bullets li { position: relative; padding-left: 4mm; font-size: 7.5pt; color: var(--ink-mid); line-height: 1.5; margin-bottom: .5mm; }
+  .exp-item__bullets li::before { content: ''; position: absolute; left: 0; top: .55em; width: 4px; height: 4px; background: var(--red); }
+
+  /* Education item */
+  .edu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2mm;
+    margin-bottom: 3mm;
+    padding: 2.5mm 3mm;
+    background: var(--bg-low);
+    border-left: 2px solid var(--blue);
+    page-break-inside: avoid;
+  }
+  .edu-item__deg  { font-family: 'Hanken Grotesk', sans-serif; font-size: 8pt; font-weight: 700; text-transform: uppercase; color: var(--ink); margin-bottom: .5mm; }
+  .edu-item__inst { font-family: 'JetBrains Mono', monospace; font-size: 6pt; text-transform: uppercase; color: var(--blue); margin-bottom: .3mm; }
+  .edu-item__note { font-size: 7pt; color: var(--ink-light); }
+  .edu-item__badge { font-family: 'JetBrains Mono', monospace; font-size: 7pt; font-weight: 700; color: white; background: var(--red); padding: 1mm 2mm; align-self: start; white-space: nowrap; }
+
+  /* Cert item */
+  .cert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 2mm;
+    margin-bottom: 2.5mm;
+    padding: 2mm 2.5mm;
+    border: .5px solid var(--border);
+    page-break-inside: avoid;
+  }
+  .cert-item__year  { font-family: 'JetBrains Mono', monospace; font-size: 6pt; color: white; background: var(--red); padding: .5mm 1.5mm; flex-shrink: 0; }
+  .cert-item__title { font-family: 'Inter', sans-serif; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: var(--ink); margin-bottom: .3mm; }
+  .cert-item__org   { font-family: 'JetBrains Mono', monospace; font-size: 6pt; text-transform: uppercase; color: var(--blue); }
+
+  /* Honors grid */
+  .honors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; }
+  .honor-item { padding: 2mm 2.5mm; background: var(--bg-low); border-left: 1.5px solid var(--red); page-break-inside: avoid; }
+  .honor-item__title { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: var(--ink); margin-bottom: .3mm; }
+  .honor-item__desc  { font-size: 6.5pt; color: var(--ink-light); line-height: 1.4; }
+
+  /* References */
+  .refs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2mm; }
+  .ref-item { padding: 2mm 2.5mm; border: .5px solid var(--border); page-break-inside: avoid; }
+  .ref-item__name { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: var(--ink); margin-bottom: .5mm; }
+  .ref-item__role { font-family: 'JetBrains Mono', monospace; font-size: 6pt; text-transform: uppercase; color: var(--blue); margin-bottom: .3mm; }
+  .ref-item__tel  { font-size: 7pt; color: var(--ink-light); }
+
+  /* Social row */
+  .social-row { display: flex; flex-wrap: wrap; gap: 2mm 4mm; margin-top: 2mm; }
+  .social-row a { font-family: 'JetBrains Mono', monospace; font-size: 6.5pt; text-transform: uppercase; color: var(--blue); text-decoration: none; }
+  .social-row a::before { content: '↗ '; }
+
+  /* Footer strip */
+  .cv-footer {
+    border-top: 1.5px solid var(--red);
+    margin-top: 6mm;
+    padding-top: 2mm;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6pt;
+    color: var(--ink-light);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1 — HEADER + SUMMARY + EXPERIENCE
+═══════════════════════════════════════════════ -->
+
+<!-- HEADER -->
+<div class="cv-header keep-inside">
+  <img class="cv-header__photo" src="photo.jpg" alt="Prabash Baral">
+  <div>
+    <div class="cv-header__name">Prabash <span>Baral</span></div>
+    <div class="cv-header__title">Entrepreneur · AI Educator · IELTS Instructor · Digital Marketing Strategist</div>
+    <div class="cv-header__accent"></div>
+    <p class="cv-header__summary">
+      BBA Graduate (CGPA 3.81, Lincoln University Malaysia / Texas Intl. College) and ongoing MBA student. Co-Founder of IT Skills Training Nepal (SNIT). Certified IELTS Instructor at Real World Education &amp; Migration and WI Education. Former BD Director at Chill Tech Pvt. Ltd. Digital Marketing Expert for Nepal Infrastructure Summit (CNI). Aspire Institute Ambassador — Harvard-affiliated Leadership Development Program, 2024. 8+ years of diverse professional experience across education, business development, and AI training.
+    </p>
+    <div class="cv-header__contacts">
+      <span>+977 9869400285</span>
+      <span>prabashbaral100@gmail.com</span>
+      <span>Kapan, Kathmandu</span>
+      <span>linkedin.com/in/prabash-baral/</span>
+      <span>snit.education</span>
+      <span>DOB: March 16, 2000</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATS + NOTABLE BAND -->
+<div class="stats-row keep-inside">
+  <div class="stat-box"><div class="stat-box__num">3.81</div><div class="stat-box__label">BBA CGPA</div></div>
+  <div class="stat-box"><div class="stat-box__num">8+</div><div class="stat-box__label">Yrs Exp.</div></div>
+  <div class="stat-box"><div class="stat-box__num">30+</div><div class="stat-box__label">Trainings</div></div>
+  <div class="stat-box"><div class="stat-box__num">4</div><div class="stat-box__label">Languages</div></div>
+</div>
+
+<div class="notable-band keep-inside">
+  <div class="notable-band__title">Notable Corporate Engagements</div>
+  <div class="notable-band__items">
+    <span class="notable-band__item">Chaudhary Group (CG) — Corporate Collaboration</span>
+    <span class="notable-band__item">Nepal Infrastructure Summit — CNI Digital Marketing Expert</span>
+    <span class="notable-band__item">Global IME Bank — Strategic Partnership</span>
+    <span class="notable-band__item">Aspire Institute (Harvard-affiliated) — Ambassador 2024</span>
+    <span class="notable-band__item">Texas BIC (TBIC) — Counselor 2023</span>
+  </div>
+</div>
+
+<!-- TWO-COLUMN BODY -->
+<div class="two-col">
+
+  <!-- ── SIDEBAR ── -->
+  <div class="sidebar">
+
+    <div class="section-head">Contact</div>
+    <div class="sb-contact">
+      <div class="sb-contact__row"><span class="sb-contact__icon">✉</span>prabashbaral100@gmail.com</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">☏</span>+977 9869400285</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">⌂</span>Kapan, Kathmandu<br>(Permanent: Taplejung, Shiwa)</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">↗</span>linkedin.com/in/prabash-baral/</div>
+    </div>
+
+    <div class="section-head">SNIT Social Media</div>
+    <div class="sb-contact">
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Instagram: @snit.education</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Facebook: snit.education</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>TikTok: @snit.education</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>YouTube: @snitnepal</div>
+    </div>
+
+    <div class="section-head">AI &amp; Tech Tools</div>
+    <div class="skill-section">
+      <div class="pill-wrap">
+        <span class="pill accent">ChatGPT / CODEX</span>
+        <span class="pill accent">Claude AI</span>
+        <span class="pill">Claude Code</span>
+        <span class="pill">Claude Design</span>
+        <span class="pill">Google AI Studio</span>
+        <span class="pill">Stitch (Google)</span>
+        <span class="pill accent">Higgsfield</span>
+        <span class="pill">Gemini</span>
+        <span class="pill">Midjourney</span>
+        <span class="pill">AI Video Gen</span>
+      </div>
+    </div>
+
+    <div class="section-head">Design &amp; Creative</div>
+    <div class="skill-section">
+      <div class="pill-wrap">
+        <span class="pill accent">Figma</span>
+        <span class="pill accent">Photoshop</span>
+        <span class="pill">Affinity Designer</span>
+        <span class="pill">Affinity Photo</span>
+        <span class="pill">Canva</span>
+        <span class="pill">Google Sketch</span>
+        <span class="pill">Adobe Express</span>
+      </div>
+    </div>
+
+    <div class="section-head">Business Skills</div>
+    <div class="skill-section">
+      <div class="pill-wrap">
+        <span class="pill red">Entrepreneurship</span>
+        <span class="pill">Business Dev.</span>
+        <span class="pill">Strategic Planning</span>
+        <span class="pill">Branding</span>
+        <span class="pill">Digital Marketing</span>
+        <span class="pill">SEO / SEM</span>
+        <span class="pill">Content Strategy</span>
+        <span class="pill">IELTS / PTE</span>
+        <span class="pill">Share Market</span>
+        <span class="pill">Curriculum Dev.</span>
+      </div>
+    </div>
+
+    <div class="section-head">Soft Skills</div>
+    <div class="skill-section">
+      <div class="pill-wrap">
+        <span class="pill red">Leadership</span>
+        <span class="pill">Public Speaking</span>
+        <span class="pill">Multi-Tasking</span>
+        <span class="pill">Strategic Thinking</span>
+        <span class="pill">Presentation</span>
+        <span class="pill">Training &amp; Dev.</span>
+      </div>
+    </div>
+
+    <div class="section-head">Languages</div>
+    <div style="margin-bottom:3mm">
+      <div class="lang-bar"><div class="lang-bar__header"><span>Nepali (Native)</span><span>100%</span></div><div class="lang-bar__track"><div class="lang-bar__fill" style="width:100%"></div></div></div>
+      <div class="lang-bar"><div class="lang-bar__header"><span>English (Excellent)</span><span>95%</span></div><div class="lang-bar__track"><div class="lang-bar__fill" style="width:95%"></div></div></div>
+      <div class="lang-bar"><div class="lang-bar__header"><span>Hindi (Fluent)</span><span>85%</span></div><div class="lang-bar__track"><div class="lang-bar__fill" style="width:85%;background:#265fa2"></div></div></div>
+      <div class="lang-bar"><div class="lang-bar__header"><span>Spanish (Beginner)</span><span>25%</span></div><div class="lang-bar__track"><div class="lang-bar__fill" style="width:25%;background:#545353"></div></div></div>
+    </div>
+
+  </div><!-- /sidebar -->
+
+  <!-- ── MAIN ── -->
+  <div class="main-col">
+
+    <div class="section-head">Professional Experience</div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">IELTS Instructor</div>
+        <div class="exp-item__date">Jun 2025 – Present</div>
+      </div>
+      <div class="exp-item__org">Real World Education &amp; Migration, Nepal</div>
+      <ul class="exp-item__bullets">
+        <li>Delivered structured IELTS preparation for all four modules, helping students achieve target band scores for study abroad.</li>
+        <li>Developed personalized study plans and provided detailed feedback on Writing and Speaking performance.</li>
+        <li>Offered supplementary PTE and Duolingo test preparation.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">Co-Founder &amp; Business Development Director</div>
+        <div class="exp-item__date">Jan 2025 – Present</div>
+      </div>
+      <div class="exp-item__org">IT Skills Training Nepal (SNIT) · Putalisadak</div>
+      <ul class="exp-item__bullets">
+        <li>Co-founded SNIT to provide accessible, industry-relevant IT and AI training for students and professionals.</li>
+        <li>Led business development, partnerships, market outreach, and program expansion initiatives.</li>
+        <li>Managed social media campaigns, brand positioning, and overall institutional marketing strategy.</li>
+        <li>Conducted market research to integrate emerging skills into the training curriculum.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">IELTS Instructor (Online &amp; Offline)</div>
+        <div class="exp-item__date">Jan 2024 – Present</div>
+      </div>
+      <div class="exp-item__org">WI Education · Putalisadak</div>
+      <ul class="exp-item__bullets">
+        <li>Delivered comprehensive IELTS training for Academic and General Training formats.</li>
+        <li>Assessed language proficiency and designed personalized improvement pathways.</li>
+        <li>Delivered additional PTE and Duolingo training to expand student pathways.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">Digital Marketing Intern — Nepal Infrastructure Summit</div>
+        <div class="exp-item__date">Jun 2024 – Sep 2024</div>
+      </div>
+      <div class="exp-item__org">Confederation of Nepalese Industries (CNI) · Nepal Trade Center</div>
+      <ul class="exp-item__bullets">
+        <li>Managed the entire digital marketing for Nepal's biggest flagship infrastructure event.</li>
+        <li>Created and scheduled multi-platform social media content, increasing event reach and engagement.</li>
+        <li>Coordinated with event partners, media, and the Chaudhary Group stakeholders on brand communications.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">Senior Agency Manager / BD Director</div>
+        <div class="exp-item__date">Apr 2023 – Sep 2024</div>
+      </div>
+      <div class="exp-item__org">Chill Tech Pvt. Ltd. · Chabahil</div>
+      <ul class="exp-item__bullets">
+        <li>Led business development operations — client acquisition, relationship management, and strategic partnerships.</li>
+        <li>Orchestrated corporate collaborations with <strong>Chaudhary Group</strong> and <strong>Global IME Bank</strong>.</li>
+        <li>Developed growth strategies that expanded service offerings and improved market visibility.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">HR Head</div>
+        <div class="exp-item__date">2021 – 2022</div>
+      </div>
+      <div class="exp-item__org">Pathivara Venure Factory · Shiwa, Taplejung</div>
+      <ul class="exp-item__bullets">
+        <li>Led HR operations, personnel management, and organizational development.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item keep-inside">
+      <div class="exp-item__header">
+        <div class="exp-item__title">Computer Science Teacher &amp; IT Department Head</div>
+        <div class="exp-item__date">Mar 2019 – Apr 2021</div>
+      </div>
+      <div class="exp-item__org">Children's Model High School · Baluwatar, Kathmandu</div>
+      <ul class="exp-item__bullets">
+        <li>Delivered curriculum-based Computer Science and digital literacy lessons.</li>
+        <li>Led the IT Department, managing digital infrastructure and student technology initiatives.</li>
+      </ul>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /two-col -->
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2 — EDUCATION + CERTIFICATIONS + HONORS + REFS
+═══════════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<div style="border-bottom:3px solid var(--red);padding-bottom:3mm;margin-bottom:5mm;display:flex;justify-content:space-between;align-items:center">
+  <div style="font-family:'Hanken Grotesk',sans-serif;font-size:18pt;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;color:var(--ink)">Prabash <span style="color:var(--red)">Baral</span></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:6.5pt;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-light)">Education &amp; Credentials</div>
+</div>
+
+<div class="two-col">
+
+  <!-- Sidebar page 2 -->
+  <div class="sidebar">
+
+    <div class="section-head">Academic Honors</div>
+    <div class="honors-grid">
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">Scholarship — 1st</div>
+        <div class="honor-item__desc">Semesters 1, 2 &amp; 5. 2nd place Sem 3. Texas College.</div>
+      </div>
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">Gold — Elocution</div>
+        <div class="honor-item__desc">Texas Annual ECA Meet 2023. Silver: Essay Writing.</div>
+      </div>
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">Silver — Futsal</div>
+        <div class="honor-item__desc">Texas BBA Cup 2023. Led team as Captain.</div>
+      </div>
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">Career Fair Organizer</div>
+        <div class="honor-item__desc">Texas 2024 — managed 100+ volunteers.</div>
+      </div>
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">TBIC Counselor</div>
+        <div class="honor-item__desc">2023. "Management in Global Perspective."</div>
+      </div>
+      <div class="honor-item keep-inside">
+        <div class="honor-item__title">IT Job Fair</div>
+        <div class="honor-item__desc">Texas 2022 — co-coordinated &amp; volunteered.</div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:4mm">References</div>
+    <div style="display:flex;flex-direction:column;gap:2mm">
+      <div class="ref-item keep-inside">
+        <div class="ref-item__name">Mr. Bhim Bahadur Saud</div>
+        <div class="ref-item__role">BD &amp; Ops Manager · Aadim National College</div>
+        <div class="ref-item__tel">+977 9801320087</div>
+      </div>
+      <div class="ref-item keep-inside">
+        <div class="ref-item__name">Mrs. Pramila Thapa</div>
+        <div class="ref-item__role">BBA &amp; MBA HOD · Texas College</div>
+        <div class="ref-item__tel">+977 9803891092</div>
+      </div>
+      <div class="ref-item keep-inside">
+        <div class="ref-item__name">Mrs. Sarala Karki</div>
+        <div class="ref-item__role">Research Manager · Texas College</div>
+        <div class="ref-item__tel">+977 9851174229</div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:4mm">Job Preference</div>
+    <div class="sb-contact">
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Preferred Title: Curriculum Developer / Academic Director</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Industries: Education, Marketing, Event Mgmt, Banking</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Location: Kathmandu (within ring road)</div>
+      <div class="sb-contact__row"><span class="sb-contact__icon">▸</span>Level: Senior</div>
+    </div>
+
+  </div><!-- /sidebar p2 -->
+
+  <!-- Main page 2 -->
+  <div class="main-col">
+
+    <div class="section-head">Education</div>
+
+    <div class="edu-item keep-inside">
+      <div>
+        <div class="edu-item__deg">Master of Business Administration (MBA) — Ongoing</div>
+        <div class="edu-item__inst">Texas College of Management &amp; IT</div>
+        <div class="edu-item__note">Advanced studies in strategy, management &amp; technology-driven enterprise.</div>
+      </div>
+      <div class="edu-item__badge">ONGOING</div>
+    </div>
+
+    <div class="edu-item keep-inside">
+      <div>
+        <div class="edu-item__deg">Bachelor of Business Administration (BBA)</div>
+        <div class="edu-item__inst">Texas International College · Lincoln University, Malaysia</div>
+        <div class="edu-item__note">Completed March 2025 · Letter of Recommendation Awarded</div>
+      </div>
+      <div class="edu-item__badge">CGPA 3.81</div>
+    </div>
+
+    <div class="edu-item keep-inside">
+      <div>
+        <div class="edu-item__deg">Higher Secondary (+2) — Management</div>
+        <div class="edu-item__inst">The Times International College · NEB, Nepal</div>
+        <div class="edu-item__note">Completed March 2019</div>
+      </div>
+      <div class="edu-item__badge">CGPA 3.01</div>
+    </div>
+
+    <div class="edu-item keep-inside">
+      <div>
+        <div class="edu-item__deg">SEE — Secondary Education Examination</div>
+        <div class="edu-item__inst">Daffodil Boarding School · NEB, Nepal</div>
+        <div class="edu-item__note">Completed April 2017</div>
+      </div>
+      <div class="edu-item__badge">CGPA 3.35</div>
+    </div>
+
+    <div class="section-head">Certifications &amp; Trainings</div>
+
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2024</span>
+      <div><div class="cert-item__title">Aspire Institute — Leadership Development Program</div><div class="cert-item__org">Aspire Institute · Harvard University Affiliated · 3-Month Program · Ambassador Selected</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">Cert.</span>
+      <div><div class="cert-item__title">Certified AI in Digital Marketing Trainer</div><div class="cert-item__org">Corporate Training · Confederation of Nepalese Industries (CNI)</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2023</span>
+      <div><div class="cert-item__title">Digital Marketing &amp; Web Design Training</div><div class="cert-item__org">Creatu Learning — In-depth digital marketing and web design program</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2023</span>
+      <div><div class="cert-item__title">Entrepreneurship Training Program (7 Days)</div><div class="cert-item__org">Generate / Start Your Business — Scope of entrepreneurship in Nepal</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2023</span>
+      <div><div class="cert-item__title">Client Communication Workshop</div><div class="cert-item__org">Foodmandu &amp; SkillLab — Professional client communication</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2022</span>
+      <div><div class="cert-item__title">Marketing &amp; Branding Training</div><div class="cert-item__org">Skill Lab Nepal — Marketing strategy, brand building, consumer behavior</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">2022</span>
+      <div><div class="cert-item__title">Share Market Training</div><div class="cert-item__org">Artha Sewa &amp; Texas College — Stock market, investment strategy, financial instruments</div></div>
+    </div>
+    <div class="cert-item keep-inside">
+      <span class="cert-item__year">30+</span>
+      <div><div class="cert-item__title">Global Professional Trainings</div><div class="cert-item__org">Across various specialized disciplines — business, technology, leadership, education</div></div>
+    </div>
+
+  </div><!-- /main p2 -->
+</div><!-- /two-col -->
+
+<!-- FOOTER STRIP -->
+<div class="cv-footer">
+  <span>Prabash Baral · prabashbaral100@gmail.com · +977 9869400285</span>
+  <span>linkedin.com/in/prabash-baral/ · @snit.education</span>
+</div>
+
+</body>
+</html>

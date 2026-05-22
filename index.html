@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Prabash Baral | Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=Inter:wght@400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "error":"#ba1a1a","on-secondary-container":"#004684","on-secondary":"#ffffff",
+          "inverse-surface":"#2e3132","error-container":"#ffdad6","on-primary":"#ffffff",
+          "on-primary-container":"#ffe8e5","primary-container":"#d11f26",
+          "surface-container-highest":"#e1e3e4","on-secondary-fixed-variant":"#004786",
+          "on-secondary-fixed":"#001c3a","surface-container-high":"#e7e8e9",
+          "primary":"#aa0014","primary-fixed":"#ffdad6","tertiary-fixed":"#e5e2e1",
+          "on-tertiary-container":"#f0ecec","outline-variant":"#e5bdb9",
+          "tertiary-container":"#6c6b6b","on-primary-fixed":"#410003",
+          "surface-container":"#edeeef","background":"#f8f9fa","on-error":"#ffffff",
+          "surface-container-low":"#f3f4f5","inverse-primary":"#ffb3ac",
+          "on-surface-variant":"#5c403d","inverse-on-surface":"#f0f1f2",
+          "secondary-fixed-dim":"#a6c8ff","tertiary":"#545353","on-surface":"#191c1d",
+          "secondary":"#265fa2","on-tertiary-fixed-variant":"#474746",
+          "on-error-container":"#93000a","secondary-fixed":"#d4e3ff",
+          "surface-tint":"#be0a1b","primary-fixed-dim":"#ffb3ac","tertiary-fixed-dim":"#c8c6c5",
+          "on-background":"#191c1d","surface-container-lowest":"#ffffff",
+          "secondary-container":"#83b5fe","outline":"#916f6c","surface-bright":"#f8f9fa",
+          "surface-variant":"#e1e3e4","on-tertiary-fixed":"#1c1b1b","surface-dim":"#d9dadb",
+          "surface":"#f8f9fa","on-tertiary":"#ffffff"
+        },
+        borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+        spacing:{"gutter-grid":"2rem","stack-section":"2.5rem","stack-element":"0.75rem","margin-page":"3rem","sidebar-width":"30%"},
+        fontFamily:{
+          "headline-section":["Hanken Grotesk"],"display-name":["Hanken Grotesk"],
+          "subhead-bold":["Inter"],"body-main":["Inter"],"display-name-mobile":["Hanken Grotesk"],
+          "body-sm":["Inter"],"label-mono":["JetBrains Mono"]
+        },
+        fontSize:{
+          "headline-section":["14px",{lineHeight:"1.2",letterSpacing:"0.1em",fontWeight:"800"}],
+          "display-name":["36px",{lineHeight:"1.1",letterSpacing:"-0.02em",fontWeight:"800"}],
+          "subhead-bold":["16px",{lineHeight:"1.4",fontWeight:"700"}],
+          "body-main":["14px",{lineHeight:"1.6",fontWeight:"400"}],
+          "display-name-mobile":["28px",{lineHeight:"1.1",fontWeight:"800"}],
+          "body-sm":["12px",{lineHeight:"1.5",fontWeight:"400"}],
+          "label-mono":["11px",{lineHeight:"1.4",fontWeight:"500"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle}
+  .experience-bullet::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;background:#aa0014}
+  html{scroll-behavior:smooth}
+  .hero-stripe{background:repeating-linear-gradient(-55deg,transparent,transparent 4px,rgba(170,0,20,.06) 4px,rgba(170,0,20,.06) 8px)}
+  .skill-pill{transition:background .2s,color .2s,border-color .2s}
+  .skill-pill:hover{background:#aa0014;color:#fff;border-color:#aa0014}
+  .portfolio-card{transition:transform .25s ease,box-shadow .25s ease}
+  .portfolio-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(170,0,20,.12)}
+  .timeline-line{position:absolute;left:11px;top:28px;bottom:0;width:2px;background:linear-gradient(to bottom,#aa0014,#e5bdb9)}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  nav a.active{color:#aa0014!important;font-weight:700!important;border-bottom:2px solid #aa0014;padding-bottom:2px}
+  /* Photo orientation fix — EXIF may already correct it in browser */
+  #hero-photo{image-orientation:from-image}
+
+  /* ── Print / PDF styles ── */
+  @media print {
+    .no-print{display:none!important}
+    body{background:white;margin:0;padding:0}
+    nav,footer{display:none!important}
+    section,aside,main,header{break-inside:avoid}
+    /* Each major section starts on a fresh page */
+    #experience,#skills,#education,#portfolio,#certifications,#contact{page-break-before:always}
+    #hero{page-break-before:avoid}
+    .reveal{opacity:1!important;transform:none!important}
+    .hero-stripe{display:none}
+    a{text-decoration:none}
+    /* Reset transforms for cards */
+    .portfolio-card:hover,.portfolio-card{transform:none!important;box-shadow:none!important}
+  }
+  /* PDF loading overlay */
+  #pdf-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+  #pdf-overlay.active{display:flex}
+</style>
+<!-- html2pdf.js — client-side HTML → PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="bg-background text-on-background font-body-main selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="navbar" class="bg-surface-container-lowest border-b border-outline-variant fixed top-0 left-0 w-full z-50 no-print transition-shadow duration-300">
+  <div class="flex justify-between items-center w-full px-6 md:px-margin-page py-4 max-w-[1400px] mx-auto">
+    <a href="#hero" class="font-display-name text-[22px] md:text-[26px] text-on-surface uppercase tracking-tighter leading-none hover:text-primary transition-colors">Prabash Baral</a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#summary"    class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Summary</a>
+      <a href="#experience" class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Experience</a>
+      <a href="#skills"     class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Skills</a>
+      <a href="#education"  class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Education</a>
+      <a href="#portfolio"  class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Portfolio</a>
+      <a href="#certifications" class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Certificates</a>
+      <a href="#contact"    class="text-tertiary font-medium hover:text-primary transition-colors font-label-mono text-label-mono">Contact</a>
+      <button onclick="downloadPortfolioPDF()" class="bg-primary text-on-primary px-5 py-2 font-label-mono text-label-mono hover:bg-surface-tint transition-all active:scale-95 flex items-center gap-2">
+        <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> Download CV
+      </button>
+    </div>
+    <button id="mobile-menu-btn" class="md:hidden text-primary p-2"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-surface-container-lowest border-t border-outline-variant px-6 pb-6 pt-4 flex flex-col gap-4">
+    <a href="#summary"    class="text-tertiary font-label-mono text-label-mono hover:text-primary">Summary</a>
+    <a href="#experience" class="text-tertiary font-label-mono text-label-mono hover:text-primary">Experience</a>
+    <a href="#skills"     class="text-tertiary font-label-mono text-label-mono hover:text-primary">Skills</a>
+    <a href="#education"  class="text-tertiary font-label-mono text-label-mono hover:text-primary">Education</a>
+    <a href="#portfolio"  class="text-tertiary font-label-mono text-label-mono hover:text-primary">Portfolio</a>
+    <a href="#certifications" class="text-tertiary font-label-mono text-label-mono hover:text-primary">Certificates</a>
+    <a href="#contact"    class="text-tertiary font-label-mono text-label-mono hover:text-primary">Contact</a>
+    <button onclick="downloadPortfolioPDF()" class="bg-primary text-on-primary px-5 py-2 font-label-mono text-label-mono flex items-center justify-center gap-2 w-full">
+      <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> Download CV as PDF
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
+  <div class="hero-stripe absolute inset-0 pointer-events-none"></div>
+  <div class="absolute left-0 top-0 h-full w-1 bg-primary hidden lg:block"></div>
+  <div class="relative max-w-[1400px] mx-auto w-full px-6 md:px-margin-page flex flex-col lg:flex-row items-center gap-16 py-20">
+
+    <!-- Text side -->
+    <div class="flex-1 space-y-8">
+      <div>
+        <p class="font-label-mono text-label-mono text-secondary uppercase tracking-widest mb-3">Entrepreneur · AI Educator · Digital Marketing Strategist</p>
+        <h1 class="font-display-name text-[52px] md:text-[72px] text-on-surface uppercase leading-none tracking-tighter mb-4">
+          Prabash<br><span class="text-primary">Baral</span>
+        </h1>
+        <div class="h-1 w-20 bg-primary mb-6"></div>
+        <p class="font-body-main text-body-main text-on-surface-variant max-w-xl text-[15px] leading-relaxed">
+          BBA Graduate (CGPA 3.81) &bull; MBA Candidate @ Texas College &bull; Co-Founder &amp; BD Director — SNIT (IT Skills Training Nepal) &bull; AI &amp; Digital Marketing Strategist &bull; Aspire Institute Ambassador (Harvard-affiliated)
+        </p>
+      </div>
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <div class="border-l-2 border-primary pl-4">
+          <p class="font-display-name text-[28px] text-primary font-extrabold leading-none">3.81</p>
+          <p class="font-label-mono text-label-mono text-tertiary uppercase mt-1">BBA CGPA</p>
+        </div>
+        <div class="border-l-2 border-primary pl-4">
+          <p class="font-display-name text-[28px] text-primary font-extrabold leading-none">8+</p>
+          <p class="font-label-mono text-label-mono text-tertiary uppercase mt-1">Yrs Experience</p>
+        </div>
+        <div class="border-l-2 border-primary pl-4">
+          <p class="font-display-name text-[28px] text-primary font-extrabold leading-none">30+</p>
+          <p class="font-label-mono text-label-mono text-tertiary uppercase mt-1">Trainings</p>
+        </div>
+        <div class="border-l-2 border-primary pl-4">
+          <p class="font-display-name text-[28px] text-primary font-extrabold leading-none">4</p>
+          <p class="font-label-mono text-label-mono text-tertiary uppercase mt-1">Languages</p>
+        </div>
+      </div>
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a href="#portfolio" class="bg-primary text-on-primary px-8 py-3 font-label-mono text-label-mono uppercase tracking-widest hover:bg-surface-tint transition-all active:scale-95">View Portfolio</a>
+        <a href="#experience" class="border border-primary text-primary px-8 py-3 font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95">My Experience</a>
+      </div>
+      <!-- Social links row -->
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a href="https://www.linkedin.com/in/prabash-baral/" target="_blank" class="flex items-center gap-2 border border-outline-variant px-4 py-2 hover:border-primary hover:text-primary transition-colors font-label-mono text-label-mono text-on-surface-variant">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.instagram.com/snit.education" target="_blank" class="flex items-center gap-2 border border-outline-variant px-4 py-2 hover:border-primary hover:text-primary transition-colors font-label-mono text-label-mono text-on-surface-variant">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @snit.education
+        </a>
+        <a href="https://www.facebook.com/snit.education" target="_blank" class="flex items-center gap-2 border border-outline-variant px-4 py-2 hover:border-primary hover:text-primary transition-colors font-label-mono text-label-mono text-on-surface-variant">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+
+    <!-- Photo card -->
+    <div class="w-full max-w-sm lg:max-w-[320px] shrink-0">
+      <div class="relative">
+        <div class="absolute inset-0 translate-x-3 translate-y-3 bg-primary opacity-20"></div>
+        <img id="hero-photo" src="photo.jpg" alt="Prabash Baral"
+          class="relative w-full aspect-[4/5] object-cover object-top border border-outline-variant shadow-xl"
+          style="image-orientation:from-image">
+        <div class="absolute -bottom-4 -right-4 bg-primary text-on-primary px-4 py-3 shadow-lg">
+          <p class="font-label-mono text-[10px] uppercase leading-tight">Co-Founder</p>
+          <p class="font-headline-section text-[13px] uppercase font-extrabold">SNIT</p>
+        </div>
+      </div>
+      <!-- Mini contact under photo -->
+      <div class="mt-8 space-y-2">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings:'FILL' 1">call</span><span class="font-label-mono text-label-mono text-on-surface-variant">+977 9869400285</span></div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings:'FILL' 1">mail</span><span class="font-label-mono text-label-mono text-on-surface-variant">prabashbaral100@gmail.com</span></div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings:'FILL' 1">cake</span><span class="font-label-mono text-label-mono text-on-surface-variant">March 16, 2000</span></div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings:'FILL' 1">location_on</span><span class="font-label-mono text-label-mono text-on-surface-variant">Kapan, Kathmandu</span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce opacity-40">
+    <span class="material-symbols-outlined text-primary text-[20px]">keyboard_arrow_down</span>
+  </div>
+</section>
+
+<!-- ══════════════════ SUMMARY ══════════════════ -->
+<section id="summary" class="reveal max-w-[1400px] mx-auto w-full px-6 md:px-margin-page py-20">
+  <div class="border-t-4 border-primary pt-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <h2 class="font-headline-section text-headline-section text-primary uppercase">Professional Summary</h2>
+    <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">Who I Am</span>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter-grid">
+    <div class="lg:col-span-2 bg-surface-container-lowest p-8 border border-outline-variant relative">
+      <span class="material-symbols-outlined absolute -top-4 -left-4 text-4xl text-primary-fixed-dim select-none" style="font-variation-settings:'FILL' 1">format_quote</span>
+      <p class="font-body-main text-[15px] text-tertiary leading-relaxed italic mb-5">
+        Entrepreneur, AI educator, and digital marketing strategist with 8+ years of professional experience. Currently focused full-time as Co-Founder &amp; Business Development Director of IT Skills Training Nepal (SNIT) — building Nepal's AI-ready workforce — and an ongoing MBA student at Texas College of Management &amp; IT.
+      </p>
+      <p class="font-body-main text-[14px] text-on-surface-variant leading-relaxed mb-5">
+        My background spans leading corporate AI training programs, driving business development at Chill Tech Pvt. Ltd., and managing digital marketing for Nepal's biggest flagship event — the Nepal Infrastructure Summit (CNI). I have completed the prestigious Aspire Institute Leadership Development Program, affiliated with Harvard University, and have extensive experience collaborating with major institutions including the Chaudhary Group and Global IME Bank.
+      </p>
+      <p class="font-body-main text-[14px] text-on-surface-variant leading-relaxed">
+        An entrepreneur and intrapreneur who sparks creativity and positive energy — bridging technology, education, and business to drive measurable impact across Nepal's startup and corporate ecosystem.
+      </p>
+    </div>
+    <!-- Quick facts -->
+    <div class="bg-surface-container-low border-l-4 border-primary p-7 space-y-4">
+      <h3 class="font-headline-section text-headline-section text-primary uppercase mb-2">Quick Facts</h3>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">rocket_launch</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">Co-Founder &amp; BD Director — SNIT</p><p class="font-body-sm text-body-sm text-on-surface-variant">IT Skills Training Nepal · Putalisadak</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">school</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">MBA (Ongoing)</p><p class="font-body-sm text-body-sm text-on-surface-variant">Texas College of Management &amp; IT</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">grade</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">BBA — CGPA 3.81</p><p class="font-body-sm text-body-sm text-on-surface-variant">Texas Intl. College / Lincoln University, Malaysia</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">workspace_premium</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">Scholarship Winner</p><p class="font-body-sm text-body-sm text-on-surface-variant">1st place — Semesters 1, 2 &amp; 5</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">emoji_events</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">Aspire Institute Ambassador</p><p class="font-body-sm text-body-sm text-on-surface-variant">Harvard-affiliated leadership program, 2024</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">translate</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">4 Languages</p><p class="font-body-sm text-body-sm text-on-surface-variant">Nepali · Hindi · English · Spanish (beginner)</p></div></div>
+        <div class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:17px">location_on</span><div><p class="font-label-mono text-label-mono text-on-surface uppercase">Kapan, Kathmandu</p><p class="font-body-sm text-body-sm text-on-surface-variant">Permanent: Taplejung, Shiwa</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credential tiles -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+    <div class="aspect-square bg-surface-container-high flex flex-col items-center justify-center p-4 text-center group hover:bg-primary transition-all duration-300 cursor-default">
+      <span class="material-symbols-outlined text-4xl mb-2 text-primary group-hover:text-on-primary">school</span>
+      <p class="font-label-mono text-[10px] text-on-surface group-hover:text-on-primary uppercase">Aspire Institute Ambassador</p>
+      <p class="font-body-sm text-[10px] text-on-surface-variant group-hover:text-on-primary mt-1">Harvard-affiliated · 2024</p>
+    </div>
+    <div class="aspect-square bg-surface-container-high flex flex-col items-center justify-center p-4 text-center group hover:bg-primary transition-all duration-300 cursor-default">
+      <span class="material-symbols-outlined text-4xl mb-2 text-primary group-hover:text-on-primary">psychology</span>
+      <p class="font-label-mono text-[10px] text-on-surface group-hover:text-on-primary uppercase">AI Transformation Specialist</p>
+      <p class="font-body-sm text-[10px] text-on-surface-variant group-hover:text-on-primary mt-1">CNI Certified Trainer</p>
+    </div>
+    <div class="aspect-square bg-primary flex flex-col items-center justify-center p-4 text-center cursor-default">
+      <span class="material-symbols-outlined text-4xl mb-2 text-on-primary">groups</span>
+      <p class="font-label-mono text-[10px] text-on-primary uppercase font-bold">Co-Founder · SNIT</p>
+      <p class="font-body-sm text-[10px] text-primary-fixed mt-1">IT Skills Training Nepal</p>
+    </div>
+    <div class="aspect-square bg-surface-container-high flex flex-col items-center justify-center p-4 text-center group hover:bg-primary transition-all duration-300 cursor-default">
+      <span class="material-symbols-outlined text-4xl mb-2 text-primary group-hover:text-on-primary">trending_up</span>
+      <p class="font-label-mono text-[10px] text-on-surface group-hover:text-on-primary uppercase">BD Director</p>
+      <p class="font-body-sm text-[10px] text-on-surface-variant group-hover:text-on-primary mt-1">Business Development Lead</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ EXPERIENCE ══════════════════ -->
+<section id="experience" class="reveal bg-surface-container-low py-20">
+  <div class="max-w-[1400px] mx-auto w-full px-6 md:px-margin-page">
+    <div class="border-t-4 border-primary pt-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <h2 class="font-headline-section text-headline-section text-primary uppercase">Professional Experience</h2>
+      <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">8+ Years · Career Trajectory</span>
+    </div>
+
+    <!-- Notable Collaborations Banner -->
+    <div class="bg-surface-container-lowest border-2 border-primary p-6 mb-10 flex flex-col md:flex-row items-center gap-6">
+      <span class="material-symbols-outlined text-primary text-5xl shrink-0" style="font-variation-settings:'FILL' 1">star</span>
+      <div class="flex-1">
+        <p class="font-headline-section text-headline-section text-primary uppercase mb-3">Notable Corporate Engagements</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:18px">corporate_fare</span>
+            <div>
+              <p class="font-label-mono text-label-mono text-on-surface uppercase">Chaudhary Group (CG)</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Strategic corporate collaboration on tech-driven business development and digital transformation initiatives with one of Nepal's largest conglomerates.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:18px">location_city</span>
+            <div>
+              <p class="font-label-mono text-label-mono text-on-surface uppercase">Nepal Infrastructure Summit — CNI</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Led the entire digital marketing strategy for Nepal's biggest flagship infrastructure event under the Confederation of Nepalese Industries, managing all platforms and brand communications.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:18px">account_balance</span>
+            <div>
+              <p class="font-label-mono text-label-mono text-on-surface uppercase">Global IME Bank</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Corporate collaboration on fintech and innovation-driven strategic digital projects through Chill Tech Pvt. Ltd.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;font-size:18px">school</span>
+            <div>
+              <p class="font-label-mono text-label-mono text-on-surface uppercase">Aspire Institute (Harvard-affiliated)</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Selected as Ambassador — completed the prestigious 3-month Leadership Development Program, 2024.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-8">
+
+      <!-- 1 Co-Founder SNIT -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary" style="font-size:13px">rocket_launch</span></div>
+        <div class="bg-surface-container-lowest border-2 border-primary p-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <div><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Co-Founder &amp; Business Development Director</h3><p class="font-label-mono text-label-mono text-secondary uppercase">IT Skills Training Nepal (SNIT) · Putalisadak</p></div>
+            <span class="bg-error-container text-on-error-container px-3 py-1 font-label-mono text-[10px] uppercase self-start">Jan 2025 – Present · 1 yr 4 mo</span>
+          </div>
+          <ul class="space-y-1.5">
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Co-founded SNIT to provide accessible, industry-relevant IT and AI training for students and professionals in Nepal.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Led business development: partnership building, market outreach, and program expansion initiatives.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Managed social media campaigns, brand positioning, and marketing strategy across all platforms.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Conducted market research to identify emerging skills and integrate new training modules into the curriculum.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Contributed to strategic planning, revenue growth, and overall operational development of the institution.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 IELTS (de-emphasised — prior roles) -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-tertiary" style="font-size:13px">menu_book</span></div>
+        <div class="bg-surface-container-low border border-outline-variant p-4 opacity-75">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-1">
+            <div>
+              <h3 class="font-body-main text-body-main text-on-surface-variant font-bold uppercase text-[13px]">IELTS / PTE Instructor <span class="font-normal text-tertiary text-[11px] normal-case">(Previous roles)</span></h3>
+              <p class="font-label-mono text-label-mono text-tertiary uppercase text-[9px]">WI Education · Real World Education &amp; Migration · Moral EduCare Consultancy</p>
+            </div>
+            <span class="bg-surface-container-high text-tertiary px-3 py-1 font-label-mono text-[9px] uppercase self-start">2024 – 2025</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-tertiary">Delivered IELTS, PTE, and Duolingo preparation classes. Strong student success outcomes across online and in-person formats.</p>
+        </div>
+      </div>
+
+      <!-- 4 Digital Marketing Intern – CNI -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary" style="font-size:13px">campaign</span></div>
+        <div class="bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors p-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <div><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Digital Marketing Intern — Nepal Infrastructure Summit</h3><p class="font-label-mono text-label-mono text-secondary uppercase">Confederation of Nepalese Industries (CNI) · Nepal Trade Center</p></div>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-[10px] uppercase self-start">Jun 2024 – Sep 2024 · 3 months</span>
+          </div>
+          <ul class="space-y-1.5">
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Managed the entire digital marketing for Nepal's biggest flagship event, ensuring consistent branding and high online visibility.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Created and scheduled social media content across multiple platforms to drive engagement and event participation.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Coordinated with the event team, partners, and media for timely dissemination of announcements and promotional materials.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Prepared creative assets, captions, and campaign ideas to attract stakeholders, attendees, and industry leaders.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5 Chill Tech BD Director -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-secondary" style="font-size:13px">business_center</span></div>
+        <div class="bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors p-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <div><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Senior Agency Manager / BD Director</h3><p class="font-label-mono text-label-mono text-secondary uppercase">Chill Tech Pvt. Ltd. · Chabahil</p></div>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-[10px] uppercase self-start">Apr 2023 – Sep 2024 · 1 yr 5 mo</span>
+          </div>
+          <ul class="space-y-1.5">
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Led overall business development — driving client acquisition, relationship management, and strategic partnerships.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Developed and implemented growth strategies, expanding service offerings and improving market visibility.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Orchestrated corporate collaborations with <strong>Chaudhary Group</strong> and <strong>Global IME</strong>.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Oversaw proposal development, pricing strategies, and presentations to secure new contracts.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6 HR Head -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary" style="font-size:13px">manage_accounts</span></div>
+        <div class="bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors p-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <div><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">HR Head</h3><p class="font-label-mono text-label-mono text-secondary uppercase">Pathivara Venure Factory · Shiwa, Taplejung</p></div>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-[10px] uppercase self-start">2021 – 2022 · 1 year</span>
+          </div>
+          <ul class="space-y-1.5">
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Led HR operations, personnel management, and organizational development for the venture factory.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7 Teacher / IT Head -->
+      <div class="relative pl-10">
+        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-secondary" style="font-size:13px">computer</span></div>
+        <div class="bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors p-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <div><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Computer Science Teacher &amp; IT Department Head</h3><p class="font-label-mono text-label-mono text-secondary uppercase">Children's Model High School · Baluwatar, Kathmandu</p></div>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-[10px] uppercase self-start">Mar 2019 – Apr 2021 · 2 yrs 1 mo</span>
+          </div>
+          <ul class="space-y-1.5">
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Delivered curriculum-based Computer Science lessons including programming fundamentals and digital literacy.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Led the IT department, managing digital infrastructure and student technology initiatives.</li>
+            <li class="relative pl-5 font-body-main text-body-main text-on-surface-variant experience-bullet">Conducted hands-on coding sessions and project-based tasks to make complex concepts accessible.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ SKILLS ══════════════════ -->
+<section id="skills" class="reveal max-w-[1400px] mx-auto w-full px-6 md:px-margin-page py-20">
+  <div class="border-t-4 border-primary pt-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <h2 class="font-headline-section text-headline-section text-primary uppercase">Skills &amp; Tools</h2>
+    <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">What I Bring</span>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter-grid">
+
+    <!-- AI Tools -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">smart_toy</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">AI Tools</h3></div>
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">ChatGPT</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Claude AI</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">CODEX</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Google AI Studio</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Higgsfield</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Claude Code</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Claude Design</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Stitch (Google)</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Gemini</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Midjourney</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">AI Video Gen</span>
+      </div>
+    </div>
+
+    <!-- Design Tools -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">design_services</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Design &amp; Creative</h3></div>
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Figma</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Photoshop</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Affinity Designer</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Affinity Photo</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Canva</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Google Sketch</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Adobe Express</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">UI/UX Design</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Brand Design</span>
+      </div>
+    </div>
+
+    <!-- Business & Strategy -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">trending_up</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Business &amp; Strategy</h3></div>
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Business Dev</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Entrepreneurship</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Strategic Planning</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Startup Ecosystem</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Research &amp; Dev</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Product Strategy</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Curriculum Dev</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Project Coordination</span>
+      </div>
+    </div>
+
+    <!-- Digital Marketing -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">ads_click</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Digital Marketing</h3></div>
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Branding</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Social Media Mktg</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">SEO &amp; SEM</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Content Strategy</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Paid Ads</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Email Marketing</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Direct Marketing</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Event Marketing</span>
+      </div>
+    </div>
+
+    <!-- Finance & Teaching -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">candlestick_chart</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Finance &amp; Education</h3></div>
+      <div class="flex flex-wrap gap-2">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">IELTS / PTE Instructor</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Share Market</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Investment Strategy</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Financial Analysis</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Training Dev</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Spoken English</span>
+      </div>
+    </div>
+
+    <!-- Soft Skills & Languages -->
+    <div class="bg-surface-container-lowest border border-outline-variant p-6 hover:border-primary transition-colors">
+      <div class="flex items-center gap-3 mb-5"><span class="material-symbols-outlined text-primary" style="font-size:26px">record_voice_over</span><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase">Soft Skills &amp; Languages</h3></div>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Leadership</span>
+        <span class="skill-pill bg-secondary text-on-secondary px-3 py-1.5 font-body-sm text-body-sm font-bold cursor-default">Public Speaking</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Multi-Tasking</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Strategic Thinking</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Presentation</span>
+        <span class="skill-pill border border-secondary px-3 py-1.5 font-body-sm text-body-sm text-on-surface cursor-default">Communication</span>
+      </div>
+      <div class="space-y-2">
+        <div><div class="flex justify-between font-label-mono text-[10px] mb-1"><span>Nepali (Native)</span><span>100%</span></div><div class="h-1.5 bg-surface-container-highest"><div class="h-full bg-primary" style="width:100%"></div></div></div>
+        <div><div class="flex justify-between font-label-mono text-[10px] mb-1"><span>English (Excellent)</span><span>95%</span></div><div class="h-1.5 bg-surface-container-highest"><div class="h-full bg-primary" style="width:95%"></div></div></div>
+        <div><div class="flex justify-between font-label-mono text-[10px] mb-1"><span>Hindi (Fluent)</span><span>85%</span></div><div class="h-1.5 bg-surface-container-highest"><div class="h-full bg-secondary" style="width:85%"></div></div></div>
+        <div><div class="flex justify-between font-label-mono text-[10px] mb-1"><span>Spanish (Beginner)</span><span>25%</span></div><div class="h-1.5 bg-surface-container-highest"><div class="h-full bg-tertiary" style="width:25%"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ EDUCATION ══════════════════ -->
+<section id="education" class="reveal bg-surface-container-low py-20">
+  <div class="max-w-[1400px] mx-auto w-full px-6 md:px-margin-page">
+    <div class="border-t-4 border-primary pt-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <h2 class="font-headline-section text-headline-section text-primary uppercase">Education &amp; Certifications</h2>
+      <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">Academic Background</span>
+    </div>
+
+    <!-- Academic Timeline -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-grid mb-12">
+
+      <div class="bg-surface-container-lowest border-l-4 border-primary p-6">
+        <div class="flex items-start gap-4">
+          <span class="material-symbols-outlined text-primary text-4xl shrink-0" style="font-variation-settings:'FILL' 1">school</span>
+          <div>
+            <span class="bg-error-container text-on-error-container px-2 py-0.5 font-label-mono text-[9px] uppercase mb-2 inline-block">Ongoing</span>
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Master of Business Administration (MBA)</h3>
+            <p class="font-label-mono text-label-mono text-secondary uppercase mb-2">Texas College of Management &amp; IT</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Advanced studies in business strategy, management, and innovation with a focus on technology-driven enterprises.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border-l-4 border-secondary p-6">
+        <div class="flex items-start gap-4">
+          <span class="material-symbols-outlined text-secondary text-4xl shrink-0" style="font-variation-settings:'FILL' 1">military_tech</span>
+          <div>
+            <span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 font-label-mono text-[9px] uppercase mb-2 inline-block">Completed · March 2025</span>
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Bachelor of Business Administration (BBA)</h3>
+            <p class="font-label-mono text-label-mono text-secondary uppercase mb-2">Texas International College · Lincoln University, Malaysia</p>
+            <div class="flex flex-wrap items-center gap-2 mt-2">
+              <span class="bg-primary text-on-primary px-3 py-1 font-label-mono text-label-mono font-bold">CGPA 3.81 / 4.0</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Letter of Recommendation Awarded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border-l-4 border-outline-variant p-6">
+        <div class="flex items-start gap-4">
+          <span class="material-symbols-outlined text-tertiary text-4xl shrink-0" style="font-variation-settings:'FILL' 1">import_contacts</span>
+          <div>
+            <span class="bg-surface-container-high text-on-surface px-2 py-0.5 font-label-mono text-[9px] uppercase mb-2 inline-block">Completed · March 2019</span>
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Higher Secondary (+2) — Management</h3>
+            <p class="font-label-mono text-label-mono text-secondary uppercase mb-2">The Times International College, Kathmandu · NEB</p>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-label-mono">CGPA 3.01</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border-l-4 border-outline-variant p-6">
+        <div class="flex items-start gap-4">
+          <span class="material-symbols-outlined text-tertiary text-4xl shrink-0" style="font-variation-settings:'FILL' 1">auto_stories</span>
+          <div>
+            <span class="bg-surface-container-high text-on-surface px-2 py-0.5 font-label-mono text-[9px] uppercase mb-2 inline-block">Completed · April 2017</span>
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">SEE — Secondary Education Examination</h3>
+            <p class="font-label-mono text-label-mono text-secondary uppercase mb-2">Daffodil Boarding School · NEB</p>
+            <span class="bg-surface-container-high text-on-surface px-3 py-1 font-label-mono text-label-mono">CGPA 3.35</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Achievements / Honors -->
+    <h3 class="font-headline-section text-headline-section text-primary uppercase mb-6">Academic Honors &amp; Achievements</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">emoji_events</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Scholarship — 1st Place</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Texas College — Semesters 1, 2 &amp; 5. 2nd place in Semester 3.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">workspace_premium</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">GOLD — Elocution</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Texas Annual ECA Meet 2023. Also SILVER in Essay Writing.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">sports_soccer</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">SILVER — Futsal (Captain)</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Texas BBA Cup 2023 — led team as captain.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">handyman</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Texas Career Fair — Organizer</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2024 · Co-organized and managed 100+ volunteers.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">psychology</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">TBIC Counselor</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2023 · Counseled +2 students on "Management in Global Perspective."</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:26px">volunteer_activism</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Texas IT Job Fair — Volunteer</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2022 · Co-coordinated and volunteered for the event.</p></div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <h3 class="font-headline-section text-headline-section text-primary uppercase mb-6">Professional Certifications &amp; Trainings</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Aspire Institute — Leadership Dev</h4><p class="font-body-sm text-body-sm text-on-surface-variant">3-month program. Harvard-affiliated. March 2024.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">AI in Digital Marketing</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Certified trainer · CNI Corporate training programs.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Digital Marketing &amp; Web Design</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2023 · Creatu Learning — in-depth training.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Marketing &amp; Branding</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2022 · Skill Lab training on marketing and branding.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Share Market Training</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2022 · Artha Sewa &amp; Texas College.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Entrepreneurship Training</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2023 · 7-day program on entrepreneurship scope in Nepal.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Client Communication Workshop</h4><p class="font-body-sm text-body-sm text-on-surface-variant">2023 · Foodmandu &amp; SkillLab.</p></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5 flex items-start gap-4 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-primary shrink-0" style="font-variation-settings:'FILL' 1;font-size:24px">verified</span>
+        <div><h4 class="font-label-mono text-label-mono text-on-surface uppercase mb-1">30+ Global Professional Trainings</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Across various specialized disciplines worldwide.</p></div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <h3 class="font-headline-section text-headline-section text-primary uppercase mt-12 mb-6">References</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-surface-container-lowest border border-outline-variant p-5"><p class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Mr. Bhim Bahadur Saud</p><p class="font-body-sm text-body-sm text-secondary mb-1">BD &amp; Operations Manager · Aadim National College</p><p class="font-body-sm text-body-sm text-on-surface-variant">+977 9801320087</p></div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5"><p class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Mrs. Pramila Thapa</p><p class="font-body-sm text-body-sm text-secondary mb-1">BBA &amp; MBA HOD · Texas College</p><p class="font-body-sm text-body-sm text-on-surface-variant">+977 9803891092</p></div>
+      <div class="bg-surface-container-lowest border border-outline-variant p-5"><p class="font-label-mono text-label-mono text-on-surface uppercase mb-1">Mrs. Sarala Karki</p><p class="font-body-sm text-body-sm text-secondary mb-1">Research Manager · Texas College</p><p class="font-body-sm text-body-sm text-on-surface-variant">+977 9851174229</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PORTFOLIO ══════════════════ -->
+<section id="portfolio" class="reveal max-w-[1400px] mx-auto w-full px-6 md:px-margin-page py-20">
+  <div class="border-t-4 border-primary pt-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <h2 class="font-headline-section text-headline-section text-primary uppercase">Portfolio</h2>
+    <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">Selected Work</span>
+  </div>
+  <!-- Filter tabs -->
+  <div class="flex flex-wrap gap-2 mb-8" id="portfolio-filters">
+    <button data-filter="all"   class="filter-btn bg-primary text-on-primary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest">All</button>
+    <button data-filter="ai"    class="filter-btn border border-outline-variant text-tertiary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest hover:border-primary hover:text-primary transition-all">AI Projects</button>
+    <button data-filter="brand" class="filter-btn border border-outline-variant text-tertiary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest hover:border-primary hover:text-primary transition-all">Branding</button>
+    <button data-filter="biz"   class="filter-btn border border-outline-variant text-tertiary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest hover:border-primary hover:text-primary transition-all">Business</button>
+    <button data-filter="edu"   class="filter-btn border border-outline-variant text-tertiary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest hover:border-primary hover:text-primary transition-all">Education</button>
+    <button data-filter="event" class="filter-btn border border-outline-variant text-tertiary px-5 py-2 font-label-mono text-label-mono uppercase tracking-widest hover:border-primary hover:text-primary transition-all">Events</button>
+  </div>
+  <!-- Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-grid" id="portfolio-grid">
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="ai">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">smart_toy</span>
+        <div class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase">AI Project</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">SNIT — IT Skills Training Nepal</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Nepal's pioneering AI &amp; IT literacy training organization. Built curriculum, trained professionals, drove partnerships.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">AI Training</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Corporate</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Education</span></div></div>
+    </div>
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="ai">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">auto_awesome</span>
+        <div class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase">AI Project</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Content Karkhana</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Nepal's localized AI content innovation initiative — Nepali-language AI pipelines for local audiences.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">AI Content</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Localization</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Innovation</span></div></div>
+    </div>
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="event">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">location_city</span>
+        <div class="absolute top-3 left-3 bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase">Event</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Nepal Infrastructure Summit</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Digital Marketing Expert for Nepal's biggest flagship infrastructure event — full digital strategy and execution.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Digital Mktg</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Branding</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">CNI</span></div></div>
+    </div>
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="biz">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">handshake</span>
+        <div class="absolute top-3 left-3 bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase">Business</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">Chaudhary Group &amp; Global IME</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Corporate collaboration with Nepal's largest conglomerate and banking group on tech-driven strategic initiatives.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Corporate</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Partnership</span></div></div>
+    </div>
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="edu">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">menu_book</span>
+        <div class="absolute top-3 left-3 bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase">Education</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">IELTS / PTE Training Programs</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Comprehensive English proficiency instruction at WI Education and Real World Education &amp; Migration.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">IELTS</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">PTE</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Duolingo</span></div></div>
+    </div>
+
+    <div class="portfolio-card bg-surface-container-lowest border border-outline-variant overflow-hidden group" data-cat="brand">
+      <div class="h-48 bg-surface-container-high flex items-center justify-center relative overflow-hidden">
+        <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">palette</span>
+        <div class="absolute top-3 left-3 bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase">Branding</div>
+      </div>
+      <div class="p-5"><h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase mb-1">CNI AI &amp; Digital Marketing Training</h3><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Designed and delivered AI &amp; Digital Marketing curriculum for Confederation of Nepalese Industries professionals.</p><div class="flex flex-wrap gap-1"><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Curriculum</span><span class="border border-outline-variant px-2 py-0.5 font-label-mono text-[9px] text-on-surface-variant uppercase">Training</span></div></div>
+    </div>
+
+  </div>
+  <div class="mt-10 border border-dashed border-outline-variant p-8 text-center">
+    <span class="material-symbols-outlined text-primary text-4xl mb-3 block">add_circle</span>
+    <p class="font-label-mono text-label-mono text-tertiary uppercase">More projects coming soon</p>
+    <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Add your real screenshots and project links here</p>
+  </div>
+</section>
+
+<!-- ══════════════════ CERTIFICATIONS ══════════════════ -->
+<section id="certifications" class="reveal bg-surface-container-low py-20">
+  <div class="max-w-[1400px] mx-auto w-full px-6 md:px-margin-page">
+    <div class="border-t-4 border-primary pt-8 mb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <h2 class="font-headline-section text-headline-section text-primary uppercase">Certifications &amp; Credentials</h2>
+      <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">Official Recognition</span>
+    </div>
+    <p class="font-body-sm text-body-sm text-on-surface-variant mb-10">A growing collection of professional certificates, training completions, and academic recognitions. More certificates will be added here.</p>
+
+    <!-- Upload instruction notice -->
+    <div class="border border-dashed border-secondary p-5 mb-8 flex items-start gap-4 bg-surface-container-lowest">
+      <span class="material-symbols-outlined text-secondary shrink-0" style="font-size:24px">info</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">To add your real certificates: place the image files (JPG/PNG) in the portfolio folder and replace the <code class="font-label-mono text-[10px] bg-surface-container-high px-1">src</code> attribute in each card below.</p>
+    </div>
+
+    <!-- Certificate Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-grid" id="cert-grid">
+
+      <!-- Aspire Institute -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+          <!-- Replace the span above with: <img src="cert-aspire.jpg" class="w-full h-full object-contain p-2" alt="Aspire Certificate"> -->
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Aspire Institute — Leadership Dev</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2024</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Aspire Institute · Harvard University Affiliated</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">3-month Leadership Development Program. Selected as Aspire Ambassador.</p>
+        </div>
+      </div>
+
+      <!-- BBA Degree -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">school</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">BBA (Honors) Degree</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2025</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Texas Intl. College · Lincoln University, Malaysia</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Bachelor of Business Administration · CGPA 3.81 · Letter of Recommendation Awarded.</p>
+        </div>
+      </div>
+
+      <!-- AI Digital Marketing -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">psychology</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">AI in Digital Marketing</h3>
+            <span class="bg-primary text-on-primary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">Certified</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Certified Trainer · CNI Programs</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Certified AI Digital Marketing Trainer — delivered corporate training programs for the Confederation of Nepalese Industries.</p>
+        </div>
+      </div>
+
+      <!-- Digital Marketing & Web Design -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">web</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Digital Marketing &amp; Web Design</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Creatu Learning</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">In-depth training on digital marketing strategy and web design principles.</p>
+        </div>
+      </div>
+
+      <!-- Marketing & Branding -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">palette</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Marketing &amp; Branding</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2022</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Skill Lab Nepal</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Comprehensive training on marketing strategy, brand building, and consumer behavior.</p>
+        </div>
+      </div>
+
+      <!-- Share Market Training -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">candlestick_chart</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Share Market Training</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2022</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Artha Sewa &amp; Texas College</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Training in stock market analysis, investment strategies, and financial instruments.</p>
+        </div>
+      </div>
+
+      <!-- Entrepreneurship Training -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">rocket_launch</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Entrepreneurship Training Program</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Generate / Start Your Business</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">7-day in-depth session on entrepreneurship prospects and scope in Nepal.</p>
+        </div>
+      </div>
+
+      <!-- Client Communication -->
+      <div class="cert-card bg-surface-container-lowest border border-outline-variant hover:border-primary transition-colors overflow-hidden group">
+        <div class="h-52 bg-surface-container-high flex items-center justify-center relative overflow-hidden cert-img-wrap">
+          <span class="material-symbols-outlined text-[72px] text-outline-variant group-hover:text-primary transition-colors" style="font-variation-settings:'FILL' 1">forum</span>
+        </div>
+        <div class="p-5 border-t border-outline-variant">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="font-subhead-bold text-subhead-bold text-on-surface uppercase text-[13px]">Client Communication Workshop</h3>
+            <span class="bg-secondary text-on-secondary px-2 py-0.5 font-label-mono text-[9px] uppercase shrink-0">2023</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary uppercase mb-1">Foodmandu &amp; SkillLab</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Workshop on client communication, stakeholder management, and professional correspondence.</p>
+        </div>
+      </div>
+
+      <!-- Add more certificate placeholder -->
+      <div class="cert-card border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-8 text-center hover:border-primary transition-colors cursor-default">
+        <span class="material-symbols-outlined text-primary text-5xl mb-3">add_circle</span>
+        <p class="font-label-mono text-label-mono text-tertiary uppercase mb-1">Add Your Certificate</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Place your certificate image in the folder and update the src attribute in this section.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section id="contact" class="reveal bg-primary py-20">
+  <div class="max-w-[1400px] mx-auto w-full px-6 md:px-margin-page">
+    <div class="text-center mb-10">
+      <h2 class="font-headline-section text-headline-section text-on-primary uppercase mb-2">Let's Work Together</h2>
+      <p class="font-body-main text-body-main text-primary-fixed max-w-xl mx-auto">Open to speaking engagements, corporate AI training, IELTS instruction, consulting, and startup collaborations.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-10">
+      <a href="mailto:prabashbaral100@gmail.com" class="bg-on-primary text-primary flex flex-col items-center gap-2 p-6 hover:bg-primary-fixed transition-colors">
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings:'FILL' 1">mail</span>
+        <span class="font-label-mono text-label-mono uppercase">Email</span>
+        <span class="font-body-sm text-body-sm text-tertiary text-center break-all">prabashbaral100@gmail.com</span>
+      </a>
+      <a href="tel:9869400285" class="bg-on-primary text-primary flex flex-col items-center gap-2 p-6 hover:bg-primary-fixed transition-colors">
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings:'FILL' 1">call</span>
+        <span class="font-label-mono text-label-mono uppercase">Phone</span>
+        <span class="font-body-sm text-body-sm text-tertiary">+977 9869400285</span>
+      </a>
+      <a href="https://www.linkedin.com/in/prabash-baral/" target="_blank" class="bg-on-primary text-primary flex flex-col items-center gap-2 p-6 hover:bg-primary-fixed transition-colors">
+        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span class="font-label-mono text-label-mono uppercase">LinkedIn</span>
+        <span class="font-body-sm text-body-sm text-tertiary">prabash-baral</span>
+      </a>
+    </div>
+    <!-- SNIT Social links -->
+    <div class="max-w-2xl mx-auto">
+      <p class="font-headline-section text-headline-section text-on-primary uppercase text-center mb-4">Follow SNIT.EDUCATION</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="https://www.instagram.com/snit.education" target="_blank" class="bg-on-primary bg-opacity-10 border border-on-primary border-opacity-20 text-on-primary flex flex-col items-center gap-2 p-4 hover:bg-opacity-20 transition-all">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <span class="font-label-mono text-[10px] uppercase">Instagram</span>
+        </a>
+        <a href="https://www.facebook.com/snit.education" target="_blank" class="bg-on-primary bg-opacity-10 border border-on-primary border-opacity-20 text-on-primary flex flex-col items-center gap-2 p-4 hover:bg-opacity-20 transition-all">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span class="font-label-mono text-[10px] uppercase">Facebook</span>
+        </a>
+        <a href="https://www.tiktok.com/@snit.education" target="_blank" class="bg-on-primary bg-opacity-10 border border-on-primary border-opacity-20 text-on-primary flex flex-col items-center gap-2 p-4 hover:bg-opacity-20 transition-all">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          <span class="font-label-mono text-[10px] uppercase">TikTok</span>
+        </a>
+        <a href="https://www.youtube.com/@snitnepal" target="_blank" class="bg-on-primary bg-opacity-10 border border-on-primary border-opacity-20 text-on-primary flex flex-col items-center gap-2 p-4 hover:bg-opacity-20 transition-all">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span class="font-label-mono text-[10px] uppercase">YouTube</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="w-full py-8 px-6 md:px-margin-page flex flex-col md:flex-row justify-between items-center bg-surface-container-highest border-t-4 border-primary no-print">
+  <div class="font-headline-section text-headline-section text-on-surface mb-4 md:mb-0">PRABASH BARAL</div>
+  <div class="flex flex-col items-center md:items-end gap-2">
+    <p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant">&copy; 2025 Prabash Baral. All rights reserved.</p>
+    <div class="flex gap-5">
+      <a href="https://www.linkedin.com/in/prabash-baral/" target="_blank" class="font-label-mono text-label-mono text-on-tertiary-fixed-variant hover:text-primary transition-colors">LinkedIn</a>
+      <a href="https://www.instagram.com/snit.education" target="_blank" class="font-label-mono text-label-mono text-on-tertiary-fixed-variant hover:text-primary transition-colors">SNIT Instagram</a>
+      <a href="https://www.facebook.com/snit.education" target="_blank" class="font-label-mono text-label-mono text-on-tertiary-fixed-variant hover:text-primary transition-colors">SNIT Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+  // Scroll-spy
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 120) current = sec.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+    document.getElementById('navbar').style.boxShadow = window.scrollY > 10 ? '0 2px 12px rgba(0,0,0,.08)' : 'none';
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Portfolio filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#portfolio-grid [data-cat]');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-primary','text-on-primary');
+        b.classList.add('border','border-outline-variant','text-tertiary');
+      });
+      btn.classList.add('bg-primary','text-on-primary');
+      btn.classList.remove('border','border-outline-variant','text-tertiary');
+      const f = btn.dataset.filter;
+      cards.forEach(c => { c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none'; });
+    });
+  });
+
+  // ── PDF Generation ──────────────────────────────────────────────
+  async function downloadPortfolioPDF() {
+    const overlay = document.getElementById('pdf-overlay');
+    overlay.classList.add('active');
+
+    // Make all reveal sections visible for capture
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+    // Show all portfolio cards (reset any active filter)
+    document.querySelectorAll('#portfolio-grid [data-cat]').forEach(c => c.style.display = '');
+
+    // Small delay to let any pending paints finish
+    await new Promise(r => setTimeout(r, 300));
+
+    const element = document.body;
+
+    const opt = {
+      margin:       [10, 8, 10, 8],      // top, left, bottom, right (mm)
+      filename:     'Prabash-Baral-Portfolio.pdf',
+      image:        { type: 'jpeg', quality: 0.95 },
+      html2canvas:  {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 1200
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      },
+      pagebreak: {
+        // Insert page breaks before each major section
+        before: ['#summary','#experience','#skills','#education','#portfolio','#certifications','#contact'],
+        avoid:  ['.cert-card','.portfolio-card','.timeline-line + div']
+      }
+    };
+
+    try {
+      await html2pdf().set(opt).from(element).save();
+    } catch(err) {
+      console.error('PDF generation failed:', err);
+      alert('PDF generation failed. Try using File → Print → Save as PDF from your browser instead.');
+    } finally {
+      overlay.classList.remove('active');
+    }
+  }
+</script>
+
+<!-- PDF loading overlay -->
+<div id="pdf-overlay">
+  <div class="bg-surface-container-lowest border-2 border-primary p-10 flex flex-col items-center gap-5 max-w-xs w-full mx-4">
+    <!-- spinner -->
+    <svg class="animate-spin w-12 h-12 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+    <p class="font-headline-section text-headline-section text-primary uppercase">Generating PDF</p>
+    <p class="font-body-sm text-body-sm text-on-surface-variant text-center">Building your portfolio PDF page by page. This may take a few seconds…</p>
+  </div>
+</div>
+
+</body>
+</html>
